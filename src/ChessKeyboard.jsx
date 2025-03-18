@@ -1,10 +1,10 @@
-import "./styles.css";
 import { useState } from "react";
+import "./styles.css";
 
 const pieces = ["K", "Q", "B", "N", "R"];
 const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
 const numbers = ["1", "2", "3", "4", "5", "6", "7", "8"];
-const specialKeys = ["x", "+", "#", "Enter"];
+const specialKeys = ["x", "+", "#", "Enter", "Backspace"];
 
 export default function ChessKeyboard() {
   const [currentMove, setCurrentMove] = useState("");
@@ -22,6 +22,8 @@ export default function ChessKeyboard() {
         setMoves(newMoves);
         setCurrentMove("");
       }
+    } else if (key === "Backspace") {
+      setCurrentMove((prev) => prev.slice(0, -1));
     } else {
       setCurrentMove((prev) => prev + key);
     }
@@ -30,6 +32,10 @@ export default function ChessKeyboard() {
   const resetGame = () => {
     setMoves([]);
     setCurrentMove("");
+  };
+
+  const deleteLastMove = () => {
+    setMoves((prevMoves) => prevMoves.slice(0, -1));
   };
 
   return (
@@ -86,10 +92,15 @@ export default function ChessKeyboard() {
         ))}
       </div>
 
-      {/* Reset Button */}
-      <button onClick={resetGame} className="btn bg-red-500 text-white mt-4">
-        Reset Game
-      </button>
+      {/* Reset and Delete Last Move Buttons */}
+      <div className="flex space-x-4 mt-4">
+        <button onClick={resetGame} className="btn bg-red-500 text-white">
+          Reset Game
+        </button>
+        <button onClick={deleteLastMove} className="btn bg-yellow-500 text-white">
+          Delete Last Move
+        </button>
+      </div>
     </div>
   );
 }
