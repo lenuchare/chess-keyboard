@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/chess-keyboard/', // Replace with your actual repo name
+  base: '/chess-keyboard/' // This is crucial for GitHub Pages
 })
